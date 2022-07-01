@@ -59,12 +59,54 @@ nav {
 
 #login-links {
   position: absolute;
-  right: 30px;
+  right: 0;
+  /* right: 30px; */
   opacity: 0;
+  z-index: -1;
+}
+
+.login-open {
+  animation-name: LoginOpen;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.login-close {
+  animation-name: LoginClose;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes LoginOpen {
+  from {
+    opacity: 0;
+    right: 0;
+  }
+
+  to {
+    opacity: 1;
+    right: 30px;
+  }
+}
+
+@keyframes LoginClose {
+  from {
+    opacity: 1;
+    right: 30px;
+  }
+
+  to {
+    opacity: 0;
+    right: 0;
+  }
 }
 
 #login-links li:first-child {
   border-right: 1px solid black;
+}
+
+#login-links li a {
+  pointer-events: none;
 }
 
 #login-icon {
@@ -102,6 +144,117 @@ nav {
   right: 100px;
   bottom: 0;
   height: 100%;
+}
+
+/* modal */
+.modal {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.248);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#modal-content {
+  background-color: white;
+  height: 80%;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+#modal-content img {
+  object-fit: contain;
+  height: auto;
+  width: 90%;
+}
+
+#exit-icon {
+  position: absolute;
+  right: 0;
+  padding: 10px 15px;
+  font-size: 1.2rem;
+}
+
+#modal-content img {
+  height: 50%;
+  margin: 20px 0 30px 0;
+}
+
+#shop-containers {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+#shop-containers .container {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 150px;
+  margin: 5px;
+  position: relative;
+  transition-duration: 0.5s;
+}
+
+#shop-containers .container::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.289);
+  transition-duration: 0.5s;
+}
+
+#shop-containers .container button {
+  padding: 5px 20px;
+  background-color: transparent;
+  border: 3px solid rgba(255, 255, 255, 0.404);
+  z-index: 1;
+  color: white;
+  font-weight: bold;
+}
+
+#shop-containers .container:nth-of-type(1) {
+  background-image: url("/Images/purse.jpg");
+}
+#shop-containers .container:nth-of-type(2) {
+  background-image: url("/Images/suit-removebg-preview.png");
+}
+#shop-containers .container:nth-of-type(3) {
+  background-image: url("/Images/shoes.jpg");
+}
+#shop-containers .container:nth-of-type(4) {
+  background-image: url("/Images/jewelry.jpg");
+}
+
+#shop-containers .container:hover {
+  background-size: 190px;
+}
+
+#shop-containers .container:hover:after {
+  background-color: rgba(0, 0, 0, 0.182);
+}
+
+/* Added using JavaScript */
+.shopbtn {
+  border-color: black;
+  color: black;
 }
 
 /* ------------------------------------------------ */
@@ -152,21 +305,22 @@ nav {
   gap: 30px 50px;
 }
 
-.content {
+#grid-container .content {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  opacity: 0;
 }
 
-.content h3 {
+#grid-container .content h3 {
   font-size: 3rem;
   font-family: var(--Inter-font);
   margin-bottom: 10px;
 }
 
-.content p {
+#grid-container .content p {
   font-size: 0.7rem;
   font-family: var(--Inter-font);
   line-height: 25px;
@@ -190,6 +344,79 @@ nav {
   object-fit: contain;
   min-height: 400px;
   width: 100%;
+  opacity: 0;
+}
+
+.fade-in-right {
+  animation-name: fadeInRight;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fade-in-left {
+  animation-name: fadeInLeft;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fade-out-left {
+  animation-name: fadeOutLeft;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fade-out-right {
+  animation-name: fadeOutRight;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}
+
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
 }
 
 /* ------------------------------------------------------------------- */
@@ -218,7 +445,6 @@ nav {
 }
 
 #form {
-  border: 1px solid;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -267,13 +493,13 @@ footer {
 footer .content {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: flex-start;
   gap: 150px;
   margin-bottom: 50px;
 }
 
 footer .content img {
-  /* object-fit: contain; */
   height: auto;
   max-width: 380px;
 }
